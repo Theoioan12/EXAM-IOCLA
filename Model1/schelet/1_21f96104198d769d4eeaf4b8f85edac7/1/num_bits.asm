@@ -2,6 +2,7 @@
 dd
 ceva
 dadadad
+tanananaanaana
 CEVAAUFDADISUFJDASHFLJASDLKFIJ
 DKASIHGDFIKADSFJKHGADSKJHFASJHD
 section .data
