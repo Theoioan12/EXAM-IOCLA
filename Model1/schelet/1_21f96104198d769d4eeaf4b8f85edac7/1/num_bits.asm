@@ -1,6 +1,7 @@
 %include "utils/printf32.asm"
 
 SCHIMBARE
+CEVAAUFDADISUFJDASHFLJASDLKFIJ
 section .data
     arr1 db 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff, 0x99, 0x88
     len1 equ $-arr1
