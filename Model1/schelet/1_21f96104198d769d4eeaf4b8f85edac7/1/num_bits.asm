@@ -1,6 +1,7 @@
 %include "utils/printf32.asm"
 dd
 ceva
+dadadad
 CEVAAUFDADISUFJDASHFLJASDLKFIJ
 DKASIHGDFIKADSFJKHGADSKJHFASJHD
 section .data
