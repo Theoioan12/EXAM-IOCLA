@@ -8,7 +8,8 @@ len equ 10
 limit dd 3000
 
 section .bss
-	; TODO a: Reserve space for an array of `len` integers. The array name is `res_arr`
+; TODO a: Reserve space for an array of `len` integers. The array name is `res_arr`
+	res_arr resd len
 
 section .text
 global main
@@ -16,15 +17,45 @@ global main
 main:
 	push ebp
 	mov ebp, esp
-
 	; TODO a: Fill in the first `len` elements of `res_array` using the folloing formula:
 	; res_arr[i] = 65 * int_arr[i] + 7
 	; Print res_arr with all elements on the same line separated by a space
+	mov esi, res_arr
 
-	; TODO b: Find the number of all the elements of `res_arr` that are strictly greater than `limit`
+	
+	mov edi, int_arr
 
-	; TODO c: Find the largest number from `res_arr` that is strictly smaller than `limit`
+	; loop coutner
+	mov ecx, len
 
+calc_loop:
+	; 32 bit in eax 
+	mov eax, [edi]
+	
+	; operatie 
+	imul eax, 65 ; imul = integer multiplication
+	add eax, 7
+
+	; stocheaza rez
+	mov [esi], eax
+
+	; continua cu urmatoarele 
+	add esi, 4
+	add edi, 4
+
+	; decrease din loop
+	loop calc_loop
+
+	; print
+	mov ecx, len
+	mov edi, res_arr
+
+print_loop:
+	mov eax, [edi]
+	PRINTF32 `%d\n\x0`, eax
+	add edi, 4
+	loop print_loop
+	
 	; Return 0.
 	xor eax, eax
 	leave
