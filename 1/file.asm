@@ -60,3 +60,4 @@ print_loop:
 	xor eax, eax
 	leave
 	ret
+; TODO a : afiseaza 722 = 65 * 11 + 7; 1307 = 65 * 20 + 7 etc
