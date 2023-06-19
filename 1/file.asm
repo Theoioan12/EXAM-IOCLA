@@ -1,3 +1,4 @@
+24p
 %include "./utils/printf32.asm"
 extern printf
 
