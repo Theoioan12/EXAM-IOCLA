@@ -1,4 +1,4 @@
-24p
+; 24p
 %include "./utils/printf32.asm"
 extern printf
 
@@ -79,7 +79,7 @@ not_greater:
 	; Print the count
 	mov eax, [counter]
 	push eax
-	PRINTF32 `\nNumber of elements greater than limit: %d\n\x0`, eax
+	PRINTF32 `subpunct c raspuns: %d\n\x0`, eax
 	pop eax
 
 	; Return 0.
