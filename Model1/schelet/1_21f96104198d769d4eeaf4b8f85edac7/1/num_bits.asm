@@ -1,6 +1,8 @@
 %include "utils/printf32.asm"
 dd
-SCHIMBARE
+ceva
+dadadad
+tanananaanaana
 CEVAAUFDADISUFJDASHFLJASDLKFIJ
 DKASIHGDFIKADSFJKHGADSKJHFASJHD
 section .data
