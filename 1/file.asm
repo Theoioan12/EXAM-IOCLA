@@ -8,7 +8,6 @@ len equ 10
 limit dd 3000
 
 section .bss
-; TODO a: Reserve space for an array of `len` integers. The array name is `res_arr`
 	res_arr resd len
 
 section .text
@@ -17,36 +16,35 @@ global main
 main:
 	push ebp
 	mov ebp, esp
-	; TODO a: Fill in the first `len` elements of `res_array` using the folloing formula:
-	; res_arr[i] = 65 * int_arr[i] + 7
-	; Print res_arr with all elements on the same line separated by a space
+
+	; Move the offset address of res_arr to esi
 	mov esi, res_arr
 
-	
+	; Move the offset address of int_arr to edi
 	mov edi, int_arr
 
-	; loop coutner
+	; Loop counter in ecx
 	mov ecx, len
 
 calc_loop:
-	; 32 bit in eax 
+	; Load a 32-bit integer from memory at address contained in edi to eax
 	mov eax, [edi]
 	
-	; operatie 
-	imul eax, 65 ; imul = integer multiplication
+	; Perform the arithmetic operation: res_arr[i] = 65 * int_arr[i] + 7
+	imul eax, 65
 	add eax, 7
 
-	; stocheaza rez
+	; Store the result in res_arr
 	mov [esi], eax
 
-	; continua cu urmatoarele 
+	; Move to the next integer in res_arr and int_arr
 	add esi, 4
 	add edi, 4
 
-	; decrease din loop
+	; Decrease the loop counter
 	loop calc_loop
 
-	; print
+	; Print the array
 	mov ecx, len
 	mov edi, res_arr
 
@@ -55,9 +53,26 @@ print_loop:
 	PRINTF32 `%d\n\x0`, eax
 	add edi, 4
 	loop print_loop
+
+	; Count the number of elements greater than limit
+	mov ecx, len
+	mov edi, res_arr
+	mov ebx, limit
+	xor edx, edx ; Set edx to 0, this register will hold our count
+
+count_loop:
+	mov eax, [edi]
+	cmp eax, ebx ; Compare the element to the limit
+	jle not_greater ; If the element is not strictly greater than limit, do not increment count
+	inc edx ; Increment the count
+not_greater:
+	add edi, 4
+	loop count_loop
+
+	; Print the count
+	PRINTF32 `%d\n\x0`, edx
 	
 	; Return 0.
 	xor eax, eax
 	leave
 	ret
-; TODO a : afiseaza 722 = 65 * 11 + 7; 1307 = 65 * 20 + 7 etc
