@@ -9,10 +9,11 @@ limit dd 3000
 
 section .bss
 	res_arr resd len
+	counter resd 1  ; reserve space for the count
 
 section .text
 global main
-
+; TODO c: Find the largest number from `res_arr` that is strictly smaller than `limit`
 main:
 	push ebp
 	mov ebp, esp
@@ -47,10 +48,13 @@ calc_loop:
 	; Print the array
 	mov ecx, len
 	mov edi, res_arr
+	xor eax, eax ; Set eax to 0
 
 print_loop:
 	mov eax, [edi]
-	PRINTF32 `%d\n\x0`, eax
+	push eax
+	PRINTF32 `%d \x0`, eax
+	pop eax
 	add edi, 4
 	loop print_loop
 
@@ -58,20 +62,25 @@ print_loop:
 	mov ecx, len
 	mov edi, res_arr
 	mov ebx, limit
-	xor edx, edx ; Set edx to 0, this register will hold our count
 
 count_loop:
-	mov eax, [edi]
-	cmp eax, ebx ; Compare the element to the limit
-	jle not_greater ; If the element is not strictly greater than limit, do not increment count
-	inc edx ; Increment the count
+	mov edx, [edi]
+	cmp edx, ebx ; Compare the element to the limit
+	jle not_greater ; If the element is less than or equal to limit, skip the increment
+	inc eax ; Increment the count
 not_greater:
 	add edi, 4
 	loop count_loop
 
+	; Save the count
+	mov [counter], eax
+
 	; Print the count
-	PRINTF32 `%d\n\x0`, edx
-	
+	mov eax, [counter]
+	push eax
+	PRINTF32 `\nNumber of elements greater than limit: %d\n\x0`, eax
+	pop eax
+
 	; Return 0.
 	xor eax, eax
 	leave
